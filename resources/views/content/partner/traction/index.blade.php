@@ -42,7 +42,6 @@
     });
     $(document).on('keyup', '#partner_name_filter', function() {
         $('#table_partner').DataTable().destroy();
-        console.log($(this).val());
         data_partner($(this).val());
     });
     let data_partner = (partner_name='') => {
