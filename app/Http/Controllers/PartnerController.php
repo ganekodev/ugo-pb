@@ -6,6 +6,7 @@ use Excel;
 use Carbon\Carbon;
 use App\Models\Partner;
 use Illuminate\Http\Request;
+use App\Models\PartnerRevenue;
 use App\Models\PartnerCashflow;
 use App\Models\PartnerTraction;
 use Yajra\DataTables\DataTables;
@@ -156,12 +157,11 @@ class PartnerController extends Controller
     public function traction_index(Request $request)
     {
         if($request->ajax()) {
-            $traction   = PartnerTraction::from('partner_tractions')
-                        ->leftjoin('partners','partners.id','partner_tractions.partner_id')
-                        ->where('partner_tractions.deleted_at', null)
+            $traction   = PartnerRevenue::query();
+            $traction   = $traction->leftjoin('partners','partners.id','partner_revenue.partner_id')
                         ->where('partners.referal_code', Auth::user()->pb_code);
-            if($request->partner_name != NULL) $traction->where('partners.full_name','like','%'.$request->partner_name.'%');
-            $traction->select(['partners.full_name','partner_tractions.*'])->get();
+            if($request->partner_name != NULL) $traction = $traction->where('partners.full_name','like','%'.$request->partner_name.'%');
+            $traction = $traction->select(['partners.full_name','partner_revenue.*'])->get();
             return DataTables::of($traction)
             ->editColumn('partner_name', function($data) {
                 return '<div class="text-primary partner_name" id="'.Crypt::encrypt($data->id).'" style="cursor:pointer">'.$data->full_name.'</div>';

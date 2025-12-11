@@ -86,14 +86,6 @@
                 <div style="max-height:49vh; overflow-y:auto;" class="collapse @foreach($pbs as $pb) {{ request()->is('pb/'.$pb) || request()->is('pb/'.$pb.'/*') ? 'show' : '' }} @endforeach" id="pb-collapse" data-bs-parent="#sidebarMenu">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="{{ (request()->is('pb/cashflow')) || (request()->is('pb/cashflow/*')) ? 'active' : '' }} nav-link px-4" aria-current="page" href="{{route('pb.cashflow.index')}}">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            Cashflow
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
                             <a class="{{ (request()->is('pb/withdraw')) || (request()->is('pb/withdraw/*')) ? 'active' : '' }} nav-link px-4" aria-current="page" href="{{route('pb.withdraw.index')}}">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             withdraw
